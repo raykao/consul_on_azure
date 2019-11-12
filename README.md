@@ -22,6 +22,7 @@ The goal of this section is to create a custom base image that will have all the
     - Use custom script leveraging Service Principals or MSI and delegate read role on Consul Server/Master Subnet
 - [Consul Gossip Protocol Encrypt Key](https://www.consul.io/docs/agent/encryption.html#gossip-encryption)
   - 32 Bytes, Base64 encoded
+  - Shared Symmetric Key
 - [ACL Tokens](https://learn.hashicorp.com/consul/security-networking/production-acls)
   - Used for Consul Access Control (RBAC)
   - Master Tokens
@@ -40,8 +41,25 @@ The goal of this section is to create a custom base image that will have all the
   - Agent Tokens
     - Required for all Nodes (Server and Agent Nodes)
     - Used to perform Agent/Node level operations (sync data)
-    - ACL Policy Must be unique/scoped to just that Node (Leverage ```uuidgen```)
+    - ACL Policy Must be unique/scoped to just that Node (i.e. leverage ```uuidgen```)
+      - ```acl.tokens.agent = $(uuidgen)```
     - Caveats:
-      - How to apply Node Policy?
-      -
-    
+      - How to apply Node Policy when key is not deterministic and policy operations must be applied on a Server/Master Node?
+        - How to make remote call to server to assign policy to tokenwithout sharing Master ACL token (if possible)?
+      - Use Terraform Provider for Consul to generate Tokens?
+- [TLS Certificates](https://www.consul.io/docs/commands/tls/cert.html)
+  - Initial Certs
+    - Leverage ```consul tls ca create```
+      - generates CA root private and public keys
+        - Public Key can be safely distributed to all Consul instances
+          - In this workshop this is saved to disk at ```/opt/consul/config/ssl/consul-agent-ca.pem```
+        - Private Key should be stored and never shared
+          - Used for sigining all future certificates
+    - Leverage ```consul tls cert create -server``` to create server certs
+    - Leverage ```consul tls cert create -client``` to create client certs
+    - Leverage ```consul tls cert create -cli``` to create cli certs (Required for cli commands after TLS is running)
+  - Caveats:
+    - How to distribute the TLS certs to each machine?
+      - Ansible?
+      - Pre-generate and distribute?
+      - Vault PKI backend?
