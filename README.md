@@ -1,5 +1,18 @@
 # Consul on Azure
 
+**WORK IN PROGRESS**
+
+This workshop is intended to deploy a minimal Enterprise ready Consul Cluster on Azure.
+
+## How is this different than the Hashicorp learning material?
+
+While the Hashicorp learning material is a great starting point it has a few areas that differ from the goals of this workshop:
+1. It is designed for speed of an initial Dev/Demo Cluster setup
+1. It leverages the Consul Agent in Dev Mode (This is not recommended for Production Environments as noted by the learning material itself)
+1. It does not prefer or imply any cloud provider recommended best-practices
+1. The process for deploying the servers is still very manual, this workshop is to further automate that with other Hashicorp tools (i.e. Packer, Terraform and Vault)
+1. The context of this workshop is very much Azure specific leveraging VM Scale Sets (VMSS), Azure Key Vault and Azure DevOps to name a few resources
+
 ## Packer
 
 Create a custom managed image for use as an Azure VM or VM Scale Set (VMSS).
