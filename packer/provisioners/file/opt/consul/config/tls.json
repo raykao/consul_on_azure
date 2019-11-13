@@ -1,0 +1,4 @@
+{
+  "verify_server_hostname": true,
+  "ca_file": "/opt/consul/config/ssl/consul-agent-ca.pem"
+}

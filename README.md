@@ -46,7 +46,8 @@ The goal of this section is to create a custom base image that will have all the
     - Caveats:
       - How to apply Node Policy when key is not deterministic and policy operations must be applied on a Server/Master Node?
         - How to make remote call to server to assign policy to tokenwithout sharing Master ACL token (if possible)?
-      - Use Terraform Provider for Consul to generate Tokens?
+        - Export/Save ACL Token to a secret store and trigger a policy association out of band?
+        - Use Terraform Provider for Consul to generate Tokens?
 - [TLS Certificates](https://www.consul.io/docs/commands/tls/cert.html)
   - Initial Certs
     - Leverage ```consul tls ca create```
@@ -60,6 +61,6 @@ The goal of this section is to create a custom base image that will have all the
     - Leverage ```consul tls cert create -cli``` to create cli certs (Required for cli commands after TLS is running)
   - Caveats:
     - How to distribute the TLS certs to each machine?
-      - Ansible?
-      - Pre-generate and distribute?
+      - Ansible post provisioning?
+      - Pre-generate and distribute at provisioning time?
       - Vault PKI backend?

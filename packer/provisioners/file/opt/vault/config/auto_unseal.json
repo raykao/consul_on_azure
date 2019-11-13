@@ -1,0 +1,9 @@
+{
+  "seal": {
+    "azurekeyvault": {
+      "tenant_id": "",
+      "vault_name": "",
+      "key_name": ""
+    }
+  }
+}

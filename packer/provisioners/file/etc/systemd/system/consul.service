@@ -1,0 +1,23 @@
+[Unit]
+Description="HashiCorp Consul - Service Mesh Made Easy"
+Documentation=https://www.consul.io/
+Requires=network-online.target
+After=network-online.target
+ConditionFileNotEmpty=/opt/consul/config/consul.json
+
+[Service]
+User=consul
+Group=consul
+
+ExecStart=/usr/local/bin/consul -config-dir=/opt/consul/config/
+# Reload necessary for services to start on Agent Nodes
+# See Issue 6521: https://github.com/hashicorp/consul/issues/6521
+ExecStartPost=/usr/local/bin/consul reload
+
+ExecReload=/usr/local/bin/consul reload
+KillMode=process
+Restart=on-failure
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
