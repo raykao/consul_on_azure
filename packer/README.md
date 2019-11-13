@@ -1,9 +1,9 @@
 # Hashicorp Base Image
 
 The packer ```image.json``` file is the base image used as a generic starting point to start a "Hashistack cluster".  It will install the following Hashicorp Tools:
-1. Consul
-1. Vault
-1. Nomad
+- Consul
+- Vault
+- Nomad
 
 It will also install:
 - Docker
